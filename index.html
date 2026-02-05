@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .button-area {
+      position: relative;
+      width: 320px;
+      height: 160px;
+      margin: auto;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      position: absolute;
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 40px;
+      z-index: 2;
+    }
+
+    #noBtn {
+      background: #555;
+      color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 90px;
+      z-index: 1;
+    }
+
+    .error {
+      margin-top: 20px;
+      color: red;
+      font-size: 1.1rem;
+    }
+
+    .celebrate {
+      color: white;
+      text-align: center;
+    }
+
+    .celebrate h1 {
+      font-size: 3rem;
+    }
+
+    .celebrate img {
+      width: 300px;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container" id="main">
+    <h1>Will you be my Valentine? 💘</h1>
+
+    <div class="button-area">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const errorMsg = document.getElementById("errorMsg");
+    const main = document.getElementById("main");
+
+    let currentTop = 90;
+    const yesTop = 40;
+    const minTop = yesTop + 5;
+
+    let clickCount = 0;
+
+    const messages = [
+      "Oy! Why not?",
+      "Oy, why did you click no again?",
+      "I bet you to try again.",
+      "Now there is no other way to run."
+    ];
+
+    noBtn.addEventListener("click", () => {
+      clickCount++;
+
+      if (clickCount <= messages.length) {
+        errorMsg.textContent = messages[clickCount - 1];
+      } else {
+        errorMsg.textContent = messages[messages.length - 1];
+      }
+
+      // Move No button upward until it hides under Yes
+      if (currentTop > minTop) {
+        currentTop -= 12;
+        noBtn.style.top = currentTop + "px";
+      } else {
+        noBtn.style.top = minTop + "px";
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      main.innerHTML = `
+        <div class="celebrate">
+          <h1>🎉 YAYYY!!! 🎉</h1>
+          <p>You chose YES 💕</p>
+          <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjJ3NjlzYTQ3MmM1ejJscTAyeWJ2bWRha3Y1NDdodG1paDBxNHoyayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/roSEVPxDsbKiQB5N6V/giphy.gif">
+        </div>
+      `;
+    });
+  </script>
+
+</body>
+</html>
